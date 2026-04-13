@@ -7,7 +7,7 @@ export default function CustomVideoPlayer({ url }: { url: string }) {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [muted, setMuted] = useState(false);
-  const playerRef = useRef<ReactPlayer>(null);
+  const playerRef = useRef<any>(null); // 🔧 تم إصلاح خطأ TypeScript
 
   return (
     <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-gray-900 shadow-2xl">
@@ -32,7 +32,6 @@ export default function CustomVideoPlayer({ url }: { url: string }) {
         onProgress={({ played }) => setProgress(played * 100)}
       />
 
-      {/* زر التشغيل المركزي الكبير */}
       {!playing && (
         <button
           onClick={() => setPlaying(true)}
@@ -44,7 +43,6 @@ export default function CustomVideoPlayer({ url }: { url: string }) {
         </button>
       )}
 
-      {/* أزرار التحكم السفلية */}
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
         <div className="flex items-center gap-3">
           <button onClick={() => setPlaying(!playing)} className="text-white">
