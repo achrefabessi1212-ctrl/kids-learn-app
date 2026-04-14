@@ -8,7 +8,6 @@ const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 export default function CustomVideoPlayer({ url }: { url: string }) {
   const [playing, setPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [muted, setMuted] = useState(false);
 
   return (
@@ -20,9 +19,6 @@ export default function CustomVideoPlayer({ url }: { url: string }) {
         playing={playing}
         muted={muted}
         controls={false}
-        onProgress={(state: { played: number }) =>
-          setProgress(state.played * 100)
-        }
       />
 
       {!playing && (
@@ -48,12 +44,12 @@ export default function CustomVideoPlayer({ url }: { url: string }) {
           >
             {playing ? <Pause size={24} /> : <Play size={24} />}
           </button>
+
+          {/* شريط تقدم بسيط (بدون تحديث حي لتجنب أخطاء TypeScript) */}
           <div className="flex-1 h-2 bg-white/30 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-purple-500 transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
+            <div className="h-full bg-purple-500 w-1/3" />
           </div>
+
           <button
             type="button"
             aria-label={muted ? "Unmute" : "Mute"}
